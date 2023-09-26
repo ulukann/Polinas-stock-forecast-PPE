@@ -19,8 +19,6 @@ pd.set_option('display.max_rows', None)
 
 df = pd.read_excel("osman/otomat/otomat_34.xlsx")
 
-#  df.to_excel('yeni_dosya_adı.xlsx', index=False, engine='xlsxwriter')
-
 df.head()
 
 df.columns
@@ -75,10 +73,6 @@ bgf.fit(df_['frequency'],
 df_.describe().T
 
 df_['frequency'].max()
-
-################################################################
-# 1 hafta içinde en çok satın alma beklediğimiz 10 müşteri kimdir?
-################################################################
 
 bgf.conditional_expected_number_of_purchases_up_to_time(1,
                                                         cltv_df['frequency'],
@@ -138,9 +132,7 @@ plt.show()
 
 
 cltv_df['frequency'].head()
-# Gerçek satın alma sayıları
 gercek_satinalmalar = cltv_df['frequency'].values
-# Tahmini satın alma sayıları
 tahmini_satinalmalar = bgf.conditional_expected_number_of_purchases_up_to_time(
     t=1,
     frequency=cltv_df['frequency'],
@@ -148,10 +140,8 @@ tahmini_satinalmalar = bgf.conditional_expected_number_of_purchases_up_to_time(
     T=cltv_df['T']
 ).values
 
-# RMSE hesaplama
 rmse = np.sqrt(mean_squared_error(gercek_satinalmalar, tahmini_satinalmalar))
 
-# MAE hesaplama
 mae = mean_absolute_error(gercek_satinalmalar, tahmini_satinalmalar)
 
 print("RMSE:", rmse)
